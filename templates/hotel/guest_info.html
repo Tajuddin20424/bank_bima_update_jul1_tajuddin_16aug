@@ -1,0 +1,610 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <!-- =====================================================
+             FORM PANEL
+        ====================================================== -->
+        <div class="col-md-4">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        Add New Guest
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <form
+                        id="guest_form"
+                        enctype="multipart/form-data"
+                    >
+
+                        {% csrf_token %}
+
+                        <!-- Database Primary Key -->
+                        <input
+                            type="hidden"
+                            id="guest_db_id"
+                            name="id"
+                        />
+
+
+                        <!-- =================================================
+                             BOOKING SOURCE
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="booking_source"
+                                class="form-label"
+                            >
+                                Booking Source
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="booking_source"
+                                name="booking_source"
+                            >
+                                <option value="">
+                                    Select Booking Source
+                                </option>
+
+                                <option value="Online">
+                                    Online Booking
+                                </option>
+
+                                <option value="Phone">
+                                    Phone Booking
+                                </option>
+
+                                <option value="Walk-in">
+                                    Walk-in Booking
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             GUEST IMAGE
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="image"
+                                class="form-label"
+                            >
+                                Guest Image
+                            </label>
+
+                            <input
+                                type="file"
+                                class="form-control"
+                                id="image"
+                                name="image"
+                                accept="image/jpeg,image/png,image/webp"
+                            />
+
+                            <div class="mt-2 text-center">
+
+                                <img
+                                    id="imagePreview"
+                                    src=""
+                                    alt="Guest Image Preview"
+                                    style="
+                                        width: 120px;
+                                        height: 120px;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                        border: 2px solid #ddd;
+                                        display: none;
+                                    "
+                                />
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             TITLE
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="title"
+                                class="form-label"
+                            >
+                                Title
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="title"
+                                name="title"
+                            >
+                                <option value="">
+                                    Select Title
+                                </option>
+
+                                <option value="Mr.">
+                                    Mr.
+                                </option>
+
+                                <option value="Mrs.">
+                                    Mrs.
+                                </option>
+
+                                <option value="Ms.">
+                                    Ms.
+                                </option>
+
+                                <option value="Shri">
+                                    Shri
+                                </option>
+
+                                <option value="Shrimati">
+                                    Shrimati
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             GUEST NAME
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="guest_name"
+                                class="form-label"
+                            >
+                                Guest Name
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="guest_name"
+                                name="guest_name"
+                                required
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                             MOBILE
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="mobile"
+                                class="form-label"
+                            >
+                                Mobile
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="mobile"
+                                name="mobile"
+                                required
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                             GENDER
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="gender"
+                                class="form-label"
+                            >
+                                Gender
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="gender"
+                                name="gender"
+                            >
+                                <option value="">
+                                    Select Gender
+                                </option>
+
+                                <option value="Male">
+                                    Male
+                                </option>
+
+                                <option value="Female">
+                                    Female
+                                </option>
+
+                                <option value="Other">
+                                    Other
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             DATE OF BIRTH
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="date_of_birth"
+                                class="form-label"
+                            >
+                                Date of Birth
+                            </label>
+
+                            <input
+                                type="date"
+                                class="form-control"
+                                id="date_of_birth"
+                                name="date_of_birth"
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                             NATIONALITY
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="nationality"
+                                class="form-label"
+                            >
+                                Nationality
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="nationality"
+                                name="nationality"
+                            />
+
+                        </div>
+
+                        <!-- =================================================
+                             ADDRESS
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="address"
+                                class="form-label"
+                            >
+                                Address
+                            </label>
+
+                            <textarea
+                                class="form-control"
+                                id="address"
+                                name="address"
+                                rows="2"
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             GUEST CATEGORY
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="guest_category"
+                                class="form-label"
+                            >
+                                Guest Category
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="guest_category"
+                                name="guest_category"
+                            >
+                                <option value="">
+                                    Select Guest Category
+                                </option>
+
+                                <option value="Regular">
+                                    Regular
+                                </option>
+
+                                <option value="Corporate">
+                                    Corporate
+                                </option>
+
+                                <option value="VIP">
+                                    VIP
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             BED CATEGORY
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="bed_category_id"
+                                class="form-label"
+                            >
+                                Bed Category
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="bed_category_id"
+                                name="bed_category_id"
+                                required
+                            >
+                                <option value="">
+                                    Select Bed Category
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             BED INFO
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="bed_info_id"
+                                class="form-label"
+                            >
+                                Bed Info
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="bed_info_id"
+                                name="bed_info_id"
+                                required
+                            >
+                                <option value="">
+                                    Select Bed Info
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                            CHECK IN
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="check_in"
+                                class="form-label"
+                            >
+                                Check-in-Date&Time
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                class="form-control"
+                                id="check_in"
+                                name="check_in"
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                            CHECK OUT
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="check_out"
+                                class="form-label"
+                            >
+                                Check-out-Date&Time
+                            </label>
+
+                            <input
+                                type="datetime-local"
+                                class="form-control"
+                                id="check_out"
+                                name="check_out"
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                             EMERGENCY CONTACT
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="emergency_contact"
+                                class="form-label"
+                            >
+                                Emergency Guest Contact
+                            </label>
+
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="emergency_contact"
+                                name="emergency_contact"
+                            />
+
+                        </div>
+
+
+                        <!-- =================================================
+                             STATUS
+                        ================================================== -->
+                        <div class="form-group mb-3">
+
+                            <label
+                                for="status"
+                                class="form-label"
+                            >
+                                Status
+                            </label>
+
+                            <select
+                                class="form-control"
+                                id="status"
+                                name="status"
+                            >
+                                <option value="1" selected>
+                                    Active
+                                </option>
+
+                                <option value="0">
+                                    Inactive
+                                </option>
+                            </select>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             BUTTONS
+                        ================================================== -->
+                        <button
+                            type="button"
+                            id="saveBtn"
+                            class="btn btn-primary"
+                        >
+                            <i class="fas fa-save"></i>
+                            Save Guest
+                        </button>
+
+                        <button
+                            type="button"
+                            id="clearBtn"
+                            class="btn btn-secondary"
+                        >
+                            <i class="fas fa-undo"></i>
+                            Clear
+                        </button>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+        <!-- =====================================================
+             TABLE PANEL
+        ====================================================== -->
+        <div class="col-md-8">
+
+            <div class="card shadow-sm">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        Guest Information List
+                    </h5>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table
+                            class="table table-striped table-hover table-sm"
+                        >
+
+                            <thead class="table-light">
+
+                                <tr>
+                                    <th>SL</th>
+                                    <th>Image</th>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Bed Category</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="guestTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="7"
+                                        class="text-center text-muted"
+                                    >
+                                        Loading...
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script src="{% static 'js/save_csrftoken.js' %}"></script>
+
+<script src="{% static 'js/hotel/info_load.js' %}"></script>
+
+<script src="{% static 'js/hotel/room_type_combo.js' %}"></script>
+
+<script src="{% static 'js/bed_category/combo_category.js' %}"></script>
+
+<script src="{% static 'js/bed_info/combo_info.js' %}"></script>
+
+{% endblock %}
